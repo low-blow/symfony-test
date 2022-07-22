@@ -15,6 +15,10 @@ doctrine:
                 dir: '%kernel.project_dir%/src/MeasurementTools/Domain/Entity'
                 prefix: 'App\MeasurementTools\Domain\Entity'
                 alias: MeasurementTools
+        filters:
+            soft-deleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true
 
 when@test:
     doctrine:
