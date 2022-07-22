@@ -11,6 +11,7 @@
 
 ###> phpstorm ###
 /idea/
+.idea/
 ###< phpstorm ###
 
 ###> symfony/phpunit-bridge ###
