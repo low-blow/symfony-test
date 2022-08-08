@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\MeasurementTools\Domain\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\SoftDeleteable;
 use Gedmo\Mapping\Annotation\Timestampable;
@@ -18,6 +19,7 @@ class MeasurementTool
     public function __construct(string $name)
     {
         $this->name = $name;
+        $this->verifications = new ArrayCollection();
     }
 
     #[ORM\Id]
@@ -35,6 +37,9 @@ class MeasurementTool
     #[ORM\Column]
     #[Timestampable(on: 'update')]
     private \DateTime $updatedAt;
+
+    #[ORM\OneToMany(mappedBy: 'measurementTool', targetEntity: 'Verification')]
+    private ArrayCollection $verifications;
 
     public function getId(): int
     {

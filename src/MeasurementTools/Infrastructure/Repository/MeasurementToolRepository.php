@@ -26,4 +26,10 @@ class MeasurementToolRepository extends ServiceEntityRepository implements Measu
     {
         return $this->find($id);
     }
+
+    public function remove(int $id): void
+    {
+        $this->_em->remove($this->findById($id));
+        $this->_em->flush();
+    }
 }

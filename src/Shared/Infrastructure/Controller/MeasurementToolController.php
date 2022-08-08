@@ -21,9 +21,16 @@ class MeasurementToolController extends AbstractController
     }
 
     #[Route('/measurement-tool/add', name: 'add', methods: ['GET'])]
-    public function addMeasurementTool(): Response
+    public function add(): Response
     {
         $this->repository->add(new MeasurementTool('Caliper'));
+        return new JsonResponse(['status' => 'ok']);
+    }
+
+    #[Route('/measurement-tool/remove', name: 'remove', methods: ['GET'])]
+    public function remove(): Response
+    {
+        $this->repository->remove(1);
         return new JsonResponse(['status' => 'ok']);
     }
 }

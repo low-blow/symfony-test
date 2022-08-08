@@ -8,4 +8,5 @@ interface MeasurementToolRepositoryInterface
 {
     public function add(MeasurementTool $measurementTool): void;
     public function findById(int $id): MeasurementTool;
+    public function remove(int $id): void;
 }
