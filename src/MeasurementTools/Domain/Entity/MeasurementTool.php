@@ -41,6 +41,12 @@ class MeasurementTool
     #[ORM\OneToMany(mappedBy: 'measurementTool', targetEntity: 'Verification')]
     private ArrayCollection $verifications;
 
+    #[ORM\OneToMany(mappedBy: 'measurementTool', targetEntity: 'IsolationProcess')]
+    private ArrayCollection $isolationProcesses;
+
+    #[ORM\OneToMany(mappedBy: 'measurementTool', targetEntity: 'StorageProcess')]
+    private ArrayCollection $storageProcesses;
+
     public function getId(): int
     {
         return $this->id;
