@@ -28,4 +28,8 @@ class VerificationRequest
     #[ORM\OneToOne(mappedBy: 'verificationRequest', targetEntity: 'Verification')]
     private Verification $verification;
 
+    public function getVerificationCompanyAddress(): VerificationCompanyAddress
+    {
+        return $this->verificationCompanyAddress;
+}
 }

@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\SoftDeleteable;
 use Gedmo\Mapping\Annotation\Timestampable;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use phpDocumentor\Reflection\Types\Boolean;
+use phpDocumentor\Reflection\Types\This;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'measurement_tools')]
@@ -20,6 +22,8 @@ class MeasurementTool
     {
         $this->name = $name;
         $this->verifications = new ArrayCollection();
+        $this->isolationProcesses = new ArrayCollection();
+        $this->storageProcesses = new ArrayCollection();
     }
 
     #[ORM\Id]
@@ -46,6 +50,25 @@ class MeasurementTool
 
     #[ORM\OneToMany(mappedBy: 'measurementTool', targetEntity: 'StorageProcess')]
     private ArrayCollection $storageProcesses;
+
+    public function isActive(): bool
+    {
+        return !($this->isIsolated() or $this->isInStorage());
+    }
+
+    public function isIsolated(): bool
+    {
+        return $this->isolationProcesses->exists(function ($elem) {
+            return $elem->endDate >= new \DateTime();
+        });
+    }
+
+    public function isInStorage(): bool
+    {
+        return $this->storageProcesses->exists(function ($elem) {
+            return $elem->endDate >= new \DateTime();
+        });
+    }
 
     public function getId(): int
     {
